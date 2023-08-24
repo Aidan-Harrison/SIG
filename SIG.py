@@ -2,9 +2,11 @@
 # Cross | 2023
 # Python 3.12
 
+# Imports
+import random
 from random import randint
 from enum import Enum
-
+# Core
 lengths : str = ['Haiku', 'Short story', 'Small', 'Medium', 'Long', 'Novel', 'Paper'];
 genres  : str = ['Thriller', 'Romance', 'Sci-fi', 'Horror', 'Fiction', 'Non-fiction', 'Poem', 'Mystery', 'Narrative', 'Fantasy', 'Crime', 'Noir', 'Drama', 'Theatre', 'Adult']
 themes  : str = ['Gothic', 'Dystopian']
@@ -63,7 +65,7 @@ synopsis : dict = {
     "SIM_W_1" : "_W_, >[_D_][rich in _M_][_D_, _D_ and _D_]<, what does this world entail?",
     # COMPLEX | Character based
     # COMPLEX | World based
-    "COM" : "",
+    "COM" : "COMPLEX TEST",
 }
 
 def generate() -> []:
@@ -71,6 +73,14 @@ def generate() -> []:
     # Generate content in order
     project.append(genres[randint(0, len(genres)-1)]) # GENRE
     project.append(themes[randint(0, len(themes)-1)]) # THEME
+    # Character generation
+    characters : str = []
+    char_file = open("CharacterForenames.txt", "r").read().splitlines() # Store all lines into an array
+    for i in range(0, character_count):
+        # Prevent segment identifiers from being read!
+        cur_character : str = random.choice(char_file).rstrip() + " " + random.choice(char_file).rstrip(); # Clear trailing | rstrip() = right strip
+        characters.append(cur_character)
+    print(characters)
     # Synopsis generation
     syn_key : str = "SIM_C_" # Default
     syn_key += str(randint(1, 3))
@@ -82,8 +92,8 @@ def generate() -> []:
                     print("Character")
                 case 'W': # World
                     world_file = open("Worlds.txt", "r")
-                    synopsis_str.replace()
-                    print(world_file.readline(4))
+                    #synopsis_str.replace()
+                    print(world_file.readline())
                 case 'Y': # Year generation | Contextual to theme/genre
                     pass;
                 case 'L': # Location
