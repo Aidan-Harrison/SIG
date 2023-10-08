@@ -180,18 +180,21 @@ def generate() -> []:
             cur_year = randint(1960, 2023) # Generic range | Improve!
     synopsis_str = synopsis_str.replace("_Y_", str(cur_year))
     # Branch calculator
+        # Picks a single branch and deletes all others
     branch_start = [] # Stores index of '['
-    branch_end   = []
+    branches = [
+    ]
+    cur_branch : int = 0
     for i in range(0, len(synopsis_str)-1): # Can probably use built-in Python function!
         if synopsis_str[i] == '[': # Open branch
-            branch_start.append(i)
+            branches.append([])
+            branches[cur_branch].append(i)
         elif synopsis_str[i] == ']':
-            branch_end.append(i)
-    if len(branch_start) > 0: 
-        index : int = randint(0, len(branch_start)-1)
-        for i in range(branch_start[index], len(synopsis_str)-1): # Avoids nested loop as well as over assignment by not checking for ']'
-            if synopsis_str[i] == ']':
-                pass;
+            branches[cur_branch].append(i)
+            cur_branch+=1
+    for branch in branches:
+        for j in range(branch[0], branch[1]):
+            pass
     project.append(synopsis_str)
     return project
 
